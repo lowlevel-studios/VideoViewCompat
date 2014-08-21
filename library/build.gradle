@@ -16,4 +16,10 @@ android {
             res.srcDirs = ['res']
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
+
+apply from: 'https://lowlevel.st/maven/local-deploy.gradle'

@@ -17,6 +17,7 @@
 package com.lowlevel.videoviewcompat;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import android.annotation.TargetApi;
@@ -29,8 +30,6 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnInfoListener;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -256,10 +255,12 @@ public class VideoView extends SurfaceView implements MediaPlayerControl {
             mMediaPlayer.setOnInfoListener(mOnInfoListener);
             mMediaPlayer.setOnBufferingUpdateListener(mBufferingUpdateListener);
             mCurrentBufferPercentage = 0;
-            if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH) {
-            	mMediaPlayer.setDataSource(getContext(), mUri, mHeaders);
-        	} else {
-        		mMediaPlayer.setDataSource(getContext(), mUri);
+            try {
+                Method m = MediaPlayer.class.getMethod("setDataSource", Context.class, Uri.class, Map.class);
+                m.setAccessible(true);
+                m.invoke(mMediaPlayer, getContext(), mUri, mHeaders);
+            } catch (Exception e) {
+                mMediaPlayer.setDataSource(getContext(), mUri);
             }
             mMediaPlayer.setDisplay(mSurfaceHolder);
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
