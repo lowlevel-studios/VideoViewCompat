@@ -16,7 +16,6 @@
 
 package com.lowlevel.videoviewcompat;
 
-import java.lang.reflect.Method;
 import java.util.Formatter;
 import java.util.Locale;
 
@@ -39,13 +38,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.MeasureSpec;
-import android.view.View.OnLayoutChangeListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
@@ -545,9 +540,9 @@ public class MediaController extends FrameLayout {
             return;
 
         if (mPlayer.isPlaying()) {
-            mPauseButton.setImageResource(R.drawable.ic_media_pause);
+            mPauseButton.setImageResource(R.drawable.vvc_ic_media_pause);
         } else {
-            mPauseButton.setImageResource(R.drawable.ic_media_play);
+            mPauseButton.setImageResource(R.drawable.vvc_ic_media_play);
         }
     }
 
