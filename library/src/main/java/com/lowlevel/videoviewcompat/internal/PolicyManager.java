@@ -11,26 +11,6 @@ public class PolicyManager {
 	 */
     private static final String POLICY_MANAGER_CLASS_NAME = "com.android.internal.policy.PolicyManager";
 
-    /*
-     * Private variables
-     */
-    private static final Class<?> cPolicyManager;
-
-
-    /*
-     * Static code
-     */
-    static {
-        try {
-        	/* Get policy manager class */
-			cPolicyManager = Class.forName(POLICY_MANAGER_CLASS_NAME);
-        }
-        catch (ClassNotFoundException e) {
-            /* Throw exception */
-            throw new RuntimeException(POLICY_MANAGER_CLASS_NAME + " could not be loaded", e);
-        }
-    }
-
     
     private PolicyManager() {
     }
@@ -41,14 +21,19 @@ public class PolicyManager {
      */
     public static Window makeNewWindow(Context context) {
     	try {
+            /* Find class */
+            Class<?> c = Class.forName(POLICY_MANAGER_CLASS_NAME);
+
 	    	/* Find method */
-			Method m = cPolicyManager.getMethod("makeNewWindow", Context.class);
+			Method m = c.getMethod("makeNewWindow", Context.class);
 	    	
 	    	/* Invoke method */
 	        return (Window)m.invoke(null, context);
     	}
+        catch (ClassNotFoundException e) {
+            throw new RuntimeException(POLICY_MANAGER_CLASS_NAME + " could not be loaded", e);
+        }
     	catch (Exception e) {
-            /* Throw exception */
     		throw new RuntimeException(POLICY_MANAGER_CLASS_NAME + ".makeNewWindow could not be invoked", e);
     	}
     }

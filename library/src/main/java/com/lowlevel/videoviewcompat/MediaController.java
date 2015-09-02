@@ -26,6 +26,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
+import android.media.Image;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -79,7 +80,6 @@ import android.widget.TextView;
  * </ul>
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-@SuppressWarnings("unused")
 public class MediaController extends FrameLayout {
 
     private MediaPlayerControl  mPlayer;
@@ -536,13 +536,15 @@ public class MediaController extends FrameLayout {
     };
 
     private void updatePausePlay() {
-        if (mRoot == null || mPauseButton == null)
-            return;
+        if (mRoot != null && mPauseButton != null)
+            updatePausePlay(mPlayer.isPlaying(), mPauseButton);
+    }
 
-        if (mPlayer.isPlaying()) {
-            mPauseButton.setImageResource(R.drawable.vvc_ic_media_pause);
+    protected void updatePausePlay(boolean isPlaying, ImageButton pauseButton) {
+        if (isPlaying) {
+            pauseButton.setImageResource(R.drawable.vvc_ic_media_pause);
         } else {
-            mPauseButton.setImageResource(R.drawable.vvc_ic_media_play);
+            pauseButton.setImageResource(R.drawable.vvc_ic_media_play);
         }
     }
 
