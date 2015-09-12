@@ -19,14 +19,13 @@ package com.lowlevel.videoviewcompat;
 import java.util.Formatter;
 import java.util.Locale;
 
-import com.lowlevel.videoviewcompat.internal.PolicyManager;
+import com.lowlevel.videoviewcompat.internal.PolicyCompat;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
-import android.media.Image;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -137,7 +136,7 @@ public class MediaController extends FrameLayout {
 
 	private void initFloatingWindow() {
         mWindowManager = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
-        mWindow = PolicyManager.makeNewWindow(mContext);
+        mWindow = PolicyCompat.createWindow(mContext);
         mWindow.setWindowManager(mWindowManager, null, null);
         mWindow.requestFeature(Window.FEATURE_NO_TITLE);
         mDecor = mWindow.getDecorView();
