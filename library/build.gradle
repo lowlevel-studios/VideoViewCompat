@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 8
-        targetSdkVersion 23
+        targetSdkVersion 25
     }
 
     lintOptions {
@@ -14,4 +14,8 @@ android {
     }
 }
 
-apply from: 'https://lowlevel.st/maven/local-deploy.gradle'
+project.ext.artifactId  = 'library'
+project.group = 'st.lowlevel.videoviewcompat'
+project.version = '1.1.4'
+
+apply from: 'maven-publish.gradle'
